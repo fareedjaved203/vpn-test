@@ -21,7 +21,7 @@ const servers = [
     name: 'Singapore Server',
     location: 'Singapore',
     configFile: 'singapore.ovpn',
-    certCN: 'cn_XjO3qfazXTAssqzCt'
+    certCN: 'server_fDiEpLyJQ4dFPpn1'
   }
 ]
 
