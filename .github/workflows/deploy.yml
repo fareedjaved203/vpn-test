@@ -45,12 +45,11 @@ jobs:
           pm2 stop vpn-backend || true
           
           # Backup current deployment
-          sudo rm -rf /var/www/vpn-backup
-          sudo mv /var/www/vpn /var/www/vpn-backup || true
+          rm -rf ~/vpn-backup
+          mv ~/vpn-test ~/vpn-backup || true
           
           # Create new directory
-          sudo mkdir -p /var/www/vpn
-          sudo chown $USER:$USER /var/www/vpn
+          mkdir -p ~/vpn-test
     
     - name: Copy files to VPS
       uses: appleboy/scp-action@v0.1.4
@@ -60,7 +59,7 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT }}
         source: "backend/*,frontend/dist/*"
-        target: "/var/www/vpn/"
+        target: "~/vpn-test/"
         strip_components: 0
     
     - name: Start Services
@@ -71,7 +70,7 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT }}
         script: |
-          cd /var/www/vpn/backend
+          cd ~/vpn-test/backend
           npm install --only=production
           
           # Start backend with PM2
