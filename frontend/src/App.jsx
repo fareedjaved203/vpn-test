@@ -6,7 +6,14 @@ function App() {
   const [servers, setServers] = useState([])
   const [selectedServer, setSelectedServer] = useState(null)
   const [connectionTime, setConnectionTime] = useState(0)
-  const [userId] = useState(() => crypto.randomUUID())
+  const [userId] = useState(() => {
+    // Fallback UUID generator for older browsers
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0
+      const v = c == 'x' ? r : (r & 0x3 | 0x8)
+      return v.toString(16)
+    })
+  })
 
   useEffect(() => {
     fetchServers()
