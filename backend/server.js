@@ -128,20 +128,8 @@ app.get('/api/download/:serverId', (req, res) => {
     // Read and modify config if needed
     let configContent = readFileSync(configPath, 'utf8')
     
-    // Replace or add correct CN verification
-    if (server.certCN) {
-      if (configContent.includes('verify-x509-name')) {
-        configContent = configContent.replace(
-          /verify-x509-name\s+\S+\s+name/,
-          `verify-x509-name ${server.certCN} name`
-        )
-      } else {
-        configContent = configContent.replace(
-          'remote-cert-tls server',
-          `remote-cert-tls server\nverify-x509-name ${server.certCN} name`
-        )
-      }
-    }
+    // Remove verify-x509-name line to avoid certificate verification issues
+    configContent = configContent.replace(/verify-x509-name.*\n?/g, '')
     
     res.setHeader('Content-Type', 'application/x-openvpn-profile')
     res.setHeader('Content-Disposition', `attachment; filename="${server.name.replace(/\s+/g, '-').toLowerCase()}.ovpn"`)
