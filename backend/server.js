@@ -90,8 +90,13 @@ app.post('/api/disconnect', (req, res) => {
   try {
     if (activeConnections.has(userId)) {
       const vpnProcess = activeConnections.get(userId)
-      vpnProcess.kill('SIGTERM')
+      
+      // Force kill the process
+      vpnProcess.kill('SIGKILL')
       activeConnections.delete(userId)
+      
+      // Also kill any remaining OpenVPN processes
+      spawn('pkill', ['-f', 'openvpn'])
       
       res.json({ success: true, message: 'VPN disconnected' })
     } else {
