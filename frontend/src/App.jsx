@@ -72,6 +72,10 @@ function App() {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
   }
 
+  const downloadConfig = (serverId) => {
+    window.open(`/api/download/${serverId}`, '_blank')
+  }
+
   return (
     <div className="app">
       <h1>VPN Client</h1>
@@ -95,9 +99,28 @@ function App() {
             className={`server-item ${selectedServer?.id === server.id ? 'selected' : ''}`}
             onClick={() => setSelectedServer(server)}
           >
-            <strong>{server.name}</strong> - {server.location}
+            <div className="server-info">
+              <strong>{server.name}</strong> - {server.location}
+            </div>
+            <button 
+              className="download-btn"
+              onClick={(e) => {
+                e.stopPropagation()
+                downloadConfig(server.id)
+              }}
+            >
+              Download .ovpn
+            </button>
           </div>
         ))}
+      </div>
+
+      <div className="manual-setup">
+        <h3>Manual Setup Instructions</h3>
+        <p>1. Download the .ovpn file above</p>
+        <p>2. Install OpenVPN client on your device</p>
+        <p>3. Import the .ovpn file into your OpenVPN client</p>
+        <p>4. Connect using your OpenVPN client</p>
       </div>
 
       <button

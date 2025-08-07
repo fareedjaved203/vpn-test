@@ -108,6 +108,29 @@ app.post('/api/disconnect', (req, res) => {
   }
 })
 
+// Download OpenVPN config file
+app.get('/api/download/:serverId', (req, res) => {
+  const { serverId } = req.params
+  
+  try {
+    const server = servers.find(s => s.id === serverId)
+    if (!server) {
+      return res.status(404).json({ error: 'Server not found' })
+    }
+
+    const configPath = path.join(process.cwd(), 'configs', server.configFile)
+    
+    if (!existsSync(configPath)) {
+      return res.status(404).json({ error: 'Configuration file not found' })
+    }
+
+    res.download(configPath, `${server.name.replace(/\s+/g, '-').toLowerCase()}.ovpn`)
+  } catch (error) {
+    console.error('Download error:', error)
+    res.status(500).json({ error: 'Failed to download configuration' })
+  }
+})
+
 // Get connection status
 app.get('/api/status/:userId', (req, res) => {
   const { userId } = req.params

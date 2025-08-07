@@ -9,6 +9,8 @@ A full-stack VPN client application built with React (Vite) frontend and Node.js
 - Server selection (Singapore server configured)
 - UUID-based user identification (no login required)
 - Real-time connection status
+- Download .ovpn configuration files for manual OpenVPN client setup
+- Manual setup instructions for external OpenVPN clients
 
 ## Prerequisites
 
@@ -102,6 +104,7 @@ vpn/
 - `POST /api/connect` - Connect to VPN server
 - `POST /api/disconnect` - Disconnect from VPN
 - `GET /api/status/:userId` - Get connection status
+- `GET /api/download/:serverId` - Download .ovpn configuration file
 
 ## Deployment to VPS
 
