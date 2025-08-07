@@ -4,13 +4,10 @@ A full-stack VPN client application built with React (Vite) frontend and Node.js
 
 ## Features
 
-- Single connect/disconnect button with loading states
-- Connection timer tracking
-- Server selection (Singapore server configured)
-- UUID-based user identification (no login required)
-- Real-time connection status
-- Download .ovpn configuration files for manual OpenVPN client setup
-- Manual setup instructions for external OpenVPN clients
+- Download .ovpn configuration files for OpenVPN clients
+- Multiple server selection (Singapore server configured)
+- Manual setup instructions for OpenVPN clients
+- Clean, simple interface focused on configuration distribution
 
 ## Prerequisites
 

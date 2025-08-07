@@ -22,43 +22,6 @@ body {
   text-align: center;
 }
 
-.status {
-  margin-bottom: 2rem;
-}
-
-.status-indicator {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.status-indicator.connected { background: #4CAF50; }
-.status-indicator.disconnected { background: #f44336; }
-.status-indicator.connecting { background: #ff9800; animation: pulse 1s infinite; }
-
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-.connect-btn {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 50px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 1rem 0;
-  transition: all 0.3s;
-}
-
-.connect-btn:hover { transform: translateY(-2px); }
-.connect-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
 .servers {
   margin: 2rem 0;
 }
@@ -68,7 +31,6 @@ body {
   padding: 10px;
   margin: 5px 0;
   border-radius: 10px;
-  cursor: pointer;
   transition: background 0.3s;
   display: flex;
   justify-content: space-between;
@@ -76,7 +38,6 @@ body {
 }
 
 .server-item:hover { background: #e0e0e0; }
-.server-item.selected { background: #e3f2fd; }
 
 .server-info {
   flex: 1;
@@ -116,11 +77,4 @@ body {
   margin: 0.25rem 0;
   color: #666;
   font-size: 14px;
-}
-
-.timer {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin: 1rem 0;
 }
