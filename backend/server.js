@@ -20,7 +20,8 @@ const servers = [
     id: 'singapore-1',
     name: 'Singapore Server',
     location: 'Singapore',
-    configFile: 'singapore.ovpn'
+    configFile: 'singapore.ovpn',
+    certCN: 'cn_XjO3qfazXTAssqzCt'
   }
 ]
 
@@ -124,7 +125,20 @@ app.get('/api/download/:serverId', (req, res) => {
       return res.status(404).json({ error: 'Configuration file not found' })
     }
 
-    res.download(configPath, `${server.name.replace(/\s+/g, '-').toLowerCase()}.ovpn`)
+    // Read and modify config if needed
+    let configContent = readFileSync(configPath, 'utf8')
+    
+    // Add correct CN verification if not present
+    if (!configContent.includes('verify-x509-name') && server.certCN) {
+      configContent = configContent.replace(
+        'remote-cert-tls server',
+        `remote-cert-tls server\nverify-x509-name ${server.certCN} name`
+      )
+    }
+    
+    res.setHeader('Content-Type', 'application/x-openvpn-profile')
+    res.setHeader('Content-Disposition', `attachment; filename="${server.name.replace(/\s+/g, '-').toLowerCase()}.ovpn"`)
+    res.send(configContent)
   } catch (error) {
     console.error('Download error:', error)
     res.status(500).json({ error: 'Failed to download configuration' })
