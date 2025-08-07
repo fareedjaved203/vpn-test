@@ -1,0 +1,2 @@
+# This file keeps the configs directory in git
+# The actual singapore.ovpn file will be copied during deployment

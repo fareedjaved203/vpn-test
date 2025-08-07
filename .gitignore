@@ -31,6 +31,9 @@ backend/configs/*.crt
 backend/configs/*.key
 backend/configs/*.pem
 
+# Keep configs directory but ignore sensitive files
+!backend/configs/.gitkeep
+
 # OS generated files
 .DS_Store
 .DS_Store?

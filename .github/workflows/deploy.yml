@@ -73,6 +73,10 @@ jobs:
           cd ~/vpn-test/backend
           npm install --only=production
           
+          # Copy OpenVPN config from root location
+          mkdir -p configs
+          cp ~/singapore.ovpn configs/singapore.ovpn
+          
           # Start backend with PM2
           pm2 start server.js --name vpn-backend
           pm2 save
